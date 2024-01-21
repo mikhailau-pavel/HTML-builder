@@ -16,7 +16,6 @@ const writeFile = async () => {
     exitOn()
   });
   try {
-    await fs.appendFile(completePath,'')
     stdout.write(greetingText)
     stdin.on('data', async (data) => {
       if (data.toString().trim() === 'exit') exitOn()
