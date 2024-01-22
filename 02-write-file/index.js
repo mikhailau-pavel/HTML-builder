@@ -2,8 +2,8 @@ const fs = require('node:fs/promises');
 const path = require('node:path')
 const { stdout, stdin, exit } = require('node:process')
 
-const greetingText = 'Greeting!\n'
-const farewellText = 'Goodbye!'
+const greetingText = 'Greeting! Hit a keyboard: \n'
+const farewellText = '\nGoodbye!'
 const fileName = 'text.txt'
 const completePath = path.join(__dirname, fileName)
 
