@@ -46,24 +46,21 @@ const buildPage = async () => {
   
     await createDirectory(completeProjectPath,'assets')
 
-    const assets = await fs.readdir(pathToAssets, { recursive: true, withFileTypes: true })
+    const assets = await fs.readdir(pathToAssets, { withFileTypes: true })
     assets.forEach(async (el) => {
-        
         if (el.isDirectory()) {
-          const assetFolder = await fs.readdir(path.join(pathToAssets, el.name), { recursive: true, withFileTypes: true })
+          const assetFolder = await fs.readdir(path.join(el.path, el.name), { withFileTypes: true })
           if (assetFolder.length) {
             await createDirectory(path.join(completeProjectPath, 'assets'), el.name)
           }
           assetFolder.forEach(async (file) => {
-            await fs.copyFile(path.join(pathToAssets, el.name, file.name), `${completeProjectPath}/assets/${el.name}/${file.name}`)
-          
-          })
+          await fs.copyFile(path.join(file.path, file.name), `${completeProjectPath}/assets/${el.name}/${file.name}`)
+         })
         } else {
-          await fs.copyFile(path.join(pathToAssets, el.name), `${completeProjectPath}/assets/${el.name}`)
+          await fs.copyFile(path.join(el.path, el.name), `${completeProjectPath}/assets/${el.name}`)
         }
 
-       
-      
+  
     })
   }
   catch (err) {
